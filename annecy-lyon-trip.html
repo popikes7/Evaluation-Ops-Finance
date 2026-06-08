@@ -387,10 +387,16 @@
       <p>Οι προτάσεις του Filippos — οργανωμένες ανά μέρα &amp; γεύμα.</p>
     </div>
     <div id="foodContainer" style="margin-top:14px"></div>
+
+    <div class="section-title">😋 Taste of France — local specialties</div>
+    <div id="tasteContainer"></div>
   </section>
 
   <!-- ============ NOTES ============ -->
   <section id="notes" class="view">
+    <div class="section-title">🚍 Getting Around</div>
+    <div class="card" id="transportList"></div>
+
     <div class="section-title">Fernando Priority List</div>
     <div class="fernando-banner">
       <h2>🧭 Fernando's picks</h2>
@@ -470,7 +476,8 @@ const lyonPlaces = [
   ["🍽️","Le Café des Fédérations","Le Café des Fédérations Lyon France"],
   ["🍽️","Brasserie Georges","Brasserie Georges Lyon France"],
   ["🥘","Restaurant Chez Paul","Chez Paul Lyon France"],
-  ["🛥️","Star Ferry (péniche)","Star Ferry péniche Lyon France"]
+  ["🛥️","Star Ferry (péniche)","Star Ferry péniche Lyon France"],
+  ["🍴","Les Halles Paul Bocuse","Les Halles de Lyon Paul Bocuse France"]
 ];
 
 // Day-by-day itinerary. id = stable key for localStorage.
@@ -502,6 +509,7 @@ const days = [
       {id:"d2-pq",   time:"Morning", icon:"🌅", name:"Le Pâquier", sub:"Big lawn with mountain backdrop", map:"Le Pâquier Annecy France"},
       {id:"d2-je",   time:"Late AM", icon:"🌳", name:"Jardins de l'Europe", sub:"Shady stroll between sights", map:"Jardins de l'Europe Annecy France"},
       {id:"d2-ch",   time:"Midday", icon:"🏯", name:"Château d'Annecy", sub:"Hilltop castle & city views", map:"Château d'Annecy France"},
+      {id:"d2-lunch", time:"Lunch", icon:"🥗", name:"Lakeside lunch in the old town", sub:"Try tartiflette or lake fish (féra) — Savoie flavours 🧀", map:"restaurant Vieille Ville Annecy France"},
       {id:"d2-boat", time:"Optional", icon:"⛵", name:"Boat ride / pedal boat", sub:"Only if the weather is good ☀️", map:"Lake Annecy boat rental France"},
       {id:"d2-bus",  time:"19:15", icon:"🚌", name:"Bus from Annecy to Lyon", sub:"Departs Annecy", transport:true, map:"Gare Routière Annecy France"},
       {id:"d2-lyon", time:"21:00", icon:"🦁", name:"Arrival in Lyon", sub:"Check in & settle", transport:true, map:"Lyon France"},
@@ -535,6 +543,7 @@ const days = [
       {id:"d4-parc", time:"Morning", icon:"🌳", name:"Parc de la Tête d'Or", sub:"Lake, free zoo & rose garden", map:"Parc de la Tête d'Or Lyon France"},
       {id:"d4-cr",   time:"Late AM", icon:"🎨", name:"Croix-Rousse", sub:"The bohemian silk-weavers' hill", map:"Croix-Rousse Lyon France"},
       {id:"d4-mur",  time:"Late AM", icon:"🖼️", name:"Mur des Canuts", sub:"Giant trompe-l'œil mural", map:"Mur des Canuts Lyon France"},
+      {id:"d4-lunch", time:"Lunch", icon:"🍴", name:"Les Halles Paul Bocuse", sub:"Famous gourmet food hall — great lunch stop 😋", map:"Les Halles de Lyon Paul Bocuse France"},
       {id:"d4-hdv",  time:"Afternoon", icon:"🏛️", name:"Hôtel de Ville", sub:"Grand 17th-c. city hall", map:"Hôtel de Ville de Lyon France"},
       {id:"d4-opera",time:"Afternoon", icon:"🎭", name:"Opéra National de Lyon", sub:"Black-glass modern dome", map:"Opéra National de Lyon France"},
       {id:"d4-terr", time:"Afternoon", icon:"⛲", name:"Place des Terreaux", sub:"Bartholdi fountain & museum", map:"Place des Terreaux Lyon France"},
@@ -605,8 +614,39 @@ const food = [
   { city:"Lyon", emoji:"🦁", items:[
     ["🥘","Restaurant Chez Paul","Day 3 · Lunch · bouchon","Chez Paul Lyon France"],
     ["🍽️","Le Café des Fédérations","Day 3 · Dinner · bouchon","Le Café des Fédérations Lyon France"],
+    ["🍴","Les Halles Paul Bocuse","Day 4 · Lunch · food hall","Les Halles de Lyon Paul Bocuse France"],
     ["🍽️","Brasserie Georges","Day 4 · Dinner · 4.4★","Brasserie Georges Lyon France"],
     ["🛥️","Star Ferry (péniche)","Day 4 · Evening drink","Star Ferry péniche Lyon France"]
+  ]}
+];
+
+// Getting around (public transport only) — external info/booking links
+const transport = [
+  ["🚌","Airport → Annecy","Direct coach (FlixBus / BlaBlaCar Bus), ~1h25. Book ahead — your 15:25 → 16:50.","https://www.flixbus.com","Book"],
+  ["🦁","Around Lyon — TCL","Metro, trams, buses + 2 funiculars to Fourvière. Get a day pass; the funicular is included.","https://www.tcl.fr/en","Info"],
+  ["🏔️","Around Annecy — Sibra","Local buses, but the old town & lakefront are super walkable — you'll barely need them.","https://www.sibra.fr","Info"],
+  ["🚌","Annecy → Lyon","Coach (FlixBus / BlaBlaCar Bus), ~1h45 — your 19:15 → 21:00.","https://www.blablacar.com/bus","Book"],
+  ["🚆","Train option","SNCF trains Annecy ↔ Lyon (~2h) if you prefer rail to coach.","https://www.sncf-connect.com/en-en/","Search"],
+  ["🚉","Airport ↔ Lyon — Rhônexpress","Tram to Lyon Part-Dieu in ~30 min — handy for your return flight.","https://www.rhonexpress.fr/en/","Info"]
+];
+
+// Taste of France — local specialties to try
+const taste = [
+  { city:"Lyon", emoji:"🦁", items:[
+    ["🥟","Quenelle de brochet","Airy pike dumpling in creamy Nantua sauce"],
+    ["🥗","Salade Lyonnaise","Frisée, lardons, croutons & a poached egg"],
+    ["🥧","Tarte aux pralines","Bright-pink praline tart — a Lyon icon"],
+    ["🧀","Cervelle de canut","Herbed fresh-cheese spread"],
+    ["🌭","Saucisson & andouillette","Classic Lyonnais charcuterie"],
+    ["🍷","Beaujolais","Easy local red, from just north of the city"]
+  ]},
+  { city:"Annecy & Savoie", emoji:"🏔️", items:[
+    ["🧀","Tartiflette","Potatoes, reblochon, onions & lardons — baked & gooey"],
+    ["🫕","Fondue / Raclette","Melted-cheese comfort, Savoie-style"],
+    ["🐟","Féra & perch fillets","Fresh fish straight from the lake"],
+    ["🧀","Reblochon & Tomme","The region's signature cheeses"],
+    ["🍷","Vin de Savoie (Apremont)","Crisp alpine white wine"],
+    ["🍬","Cloches d'Annecy","Local chocolate-praline sweets"]
   ]}
 ];
 
@@ -731,6 +771,31 @@ function renderFood(){
   }).join('');
 }
 
+// ---- Getting Around ----
+function renderTransport(){
+  document.getElementById('transportList').innerHTML = transport.map(([ico,t,d,url,label]) => `
+    <div class="note-item">
+      <div class="n-ico">${ico}</div>
+      <div class="n-txt" style="flex:1"><b>${t}</b><span style="color:var(--muted)">${d}</span></div>
+      <a class="maps-btn" style="align-self:center" href="${url}" target="_blank" rel="noopener">🔗 ${label}</a>
+    </div>`).join('');
+}
+
+// ---- Taste of France ----
+function renderTaste(){
+  document.getElementById('tasteContainer').innerHTML = taste.map(g => {
+    const rows = g.items.map(([ico,name,desc]) => `
+      <div class="place-row">
+        <span class="p-ico">${ico}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:600;font-size:14.5px">${name}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">${desc}</div>
+        </div>
+      </div>`).join('');
+    return `<div class="place-group"><h3>${g.emoji} ${g.city}</h3><div class="card">${rows}</div></div>`;
+  }).join('');
+}
+
 /* ============================================================
    STATE / localStorage
    ============================================================ */
@@ -809,6 +874,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPriorities();
   renderNotes();
   renderFood();
+  renderTransport();
+  renderTaste();
   loadChecks();
   applyChecks();
   bindCheckboxes();
