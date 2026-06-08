@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ops/Finance Support – Case Study</title>
+  <style>
+    :root{
+      --bg:#0b0f1a; --card:#0f172a; --text:#e5e7eb; --muted:#a3a3a3;
+      --line:rgba(255,255,255,.08); --accent:#7c3aed; --error:#f87171; --success:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(124,58,237,.25), transparent 60%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(34,197,94,.18), transparent 55%),
+                  var(--bg);
+      color:var(--text); line-height:1.45;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:40px 16px 80px}
+    .hero{
+      padding:28px 24px; border:1px solid var(--line); border-radius:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    }
+    .badge{
+      display:inline-flex; align-items:center; border:1px solid var(--line);
+      padding:6px 12px; border-radius:999px; color:var(--muted); font-size:12px;
+      background:rgba(255,255,255,.02); margin-bottom: 16px;
+    }
+    h1{margin:0 0 8px; font-size:28px; letter-spacing:.2px}
+    .sub{margin:0 0 24px; color:var(--muted); max-width:70ch}
+    .card{
+      border:1px solid var(--line); background:rgba(255,255,255,.02);
+      border-radius:16px; padding:20px; margin-bottom: 16px;
+    }
+    .card h2{margin:0 0 12px; font-size:18px; color:#fff}
+    .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .full{grid-column: 1 / -1}
+    label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px; font-weight: 500;}
+    input, textarea{
+      width:100%; padding:12px; border-radius:12px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text); outline:none; font-size: 14px;
+    }
+    input:focus, textarea:focus{border-color: var(--accent)}
+    textarea{min-height:120px; resize:vertical}
+    .hint{font-size:12px; color:var(--accent); font-style:italic; margin-bottom: 8px;}
+    .err-msg{color: var(--error); font-size:12px; margin-top:4px; display:none;}
+    .btnrow{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px}
+    .btn{
+      cursor:pointer; text-decoration:none; border:1px solid var(--line);
+      padding:12px 20px; border-radius:12px; font-weight: 600;
+      transition:.15s ease; font-size: 14px;
+    }
+    .btn.primary{background: var(--accent); color:#fff; border:none}
+    .btn.secondary{background: rgba(255,255,255,.05); color:var(--text)}
+    .status{ margin-top:16px; padding:14px; border-radius:12px; display:none; font-weight: 500;}
+    .status.ok{background:rgba(34,197,94,.15); color:var(--success); border:1px solid var(--success)}
+    .status.err{background:rgba(239,68,68,.15); color:var(--error); border:1px solid var(--error)}
+    @media (max-width:860px){ .form-grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <span class="badge">REBORRN • Ops/Finance Support • Case Study</span>
+      <h1>Expense Operations Portal</h1>
+      <p class="sub">Please complete all deliverables directly in the fields below. Your progress is automatically saved as a draft.</p>
+
+      <form id="evalForm">
+        <div class="card">
+          <h2>Candidate Identity</h2>
+          <div class="form-grid">
+            <div>
+              <label>Full Name *</label>
+              <input required name="fullName" type="text" placeholder="e.g. John Doe" value="John Doe">
+              <div class="err-msg" id="err-fullName">Name is required (min 3 chars).</div>
+            </div>
+            <div>
+              <label>Email *</label>
+              <input required name="email" type="email" placeholder="name@example.com" value="john.doe@example.com">
+              <div class="err-msg" id="err-email">A valid email is required.</div>
+            </div>
+            <div>
+              <label>Phone (optional)</label>
+              <input name="phone" type="text" placeholder="+1 ..." value="+1 234-567-8901">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Case Study Deliverables</h2>
+          <div class="form-grid">
+            <div class="full">
+              <label>Deliverable 1 — Priority Plan (P0/P1/P2) *</label>
+              <div class="hint">Include table-like structure: Item | Priority | Reason | ETA | Next step</div>
+              <textarea name="priorityPlan">Item | Priority | Reason | ETA | Next step
+
+1. Resolve SaaS subscription payment to avoid service suspension | P0 | Critical tool for daily operations, potential productivity loss if suspended | 1 business day | Contact finance team for immediate payment approval and process the transaction.
+
+2. Clarify VAT discrepancies with hotel vendor | P1 | Conference expenses are essential for team development and skill building | 3 business days | Send email requesting detailed VAT breakdown and supporting documents.
+
+3. Address missing VAT on team dinner receipt | P1 | Promotes fair procurement practices and compliance | 2 business days | Reach out to employee for additional documentation or assess if reimbursement can proceed without VAT if within policy thresholds.
+
+4. Secure detailed receipt for taxi expense | P2 | Ensures accountability and prevents fraud | 5 business days | Contact employee directly via phone or email to obtain full receipt details.
+
+5. Implement automated VAT validation in expense tracker | P1 | Reduces manual error and speeds up processing | 2 weeks | Develop and test validation script, integrate with expense system.
+
+6. Review and update expense policy for clear guidelines | P2 | Prevents future unclear cases | 3 weeks | Schedule review session with stakeholders and document changes.
+
+7. Train team on proper receipt and VAT requirements | P2 | Improves overall compliance | 4 weeks | Organize training sessions and provide reference materials.
+
+8. Monitor top expense categories for optimization | P2 | Identifies areas for cost saving | 1 month | Run quarterly reports and flag unusual spending patterns.
+
+Additional Priority Items:
+
+9. Set up vendor risk assessment for service continuity | P1 | Mitigates risks from suspensions | 1 week | Create checklist for vendor evaluations during onboarding.
+
+10. Automate email notifications for pending expenses | P2 | Improves communication and reduces follow-ups | 10 days | Integrate with existing expense tool or develop simple notification system.
+
+This priority plan addresses immediate risks like service interruptions while laying groundwork for long-term improvements in expense management, compliance, and efficiency. P0 focuses on critical issues threatening operations, P1 on high-impact items with timelines under a week to maintain momentum, and P2 on strategic enhancements to be tackled systematically.</textarea>
+              <div class="err-msg" id="err-priorityPlan">Minimum 800 characters required.</div>
+            </div>
+
+            <div class="full">
+              <label>Deliverable 2 — Expense Tracker Outputs (formulas + totals) *</label>
+              <div class="hint">Must include: formulas (net, VAT, issue flag), totals, top 3 categories</div>
+              <textarea name="expenseTrackerOutputs">Expense Tracker Outputs:
+
+Formulas Used:
+- Net Amount = Total Amount - VAT Amount
+- VAT Amount = Net Amount * VAT Rate
+- Total Amount = Net Amount + VAT Amount
+- Issue Flag = "VAT Missing" if VAT not calculated or receipt lacks VAT details; "Receipt Incomplete" if vendor or date missing; "OK" otherwise.
+
+Sample Expense Records:
+
+ID | Date | Category | Vendor | Net Amount (€) | VAT Rate (%) | VAT Amount (€) | Total Amount (€) | Issue Flag
+
+1 | 2024-01-15 | Travel | Hotel Conference | 1000.00 | 0.12 | 120.00 | 1120.00 | OK
+
+2 | 2024-01-16 | Meals | Team Dinner | 140.00 | 0.13 | 18.20 | 158.20 | VAT Missing
+
+3 | 2024-01-17 | Travel | Taxi Ride | 62.00 | 0.10 | 6.20 | 68.20 | Receipt Incomplete
+
+4 | 2024-01-18 | Office Supplies | SaaS Subscription | 250.00 | 0.08 | 20.00 | 270.00 | OK
+
+5 | 2024-01-19 | Meals | Client Lunch | 80.00 | 0.12 | 9.60 | 89.60 | OK
+
+6 | 2024-01-20 | Travel | Flight Tickets | 300.00 | 0.15 | 45.00 | 345.00 | OK
+
+7 | 2024-01-21 | Office Supplies | Software License | 150.00 | 0.10 | 15.00 | 165.00 | OK
+
+8 | 2024-01-22 | Meals | Team Breakfast | 50.00 | 0.13 | 6.50 | 56.50 | OK
+
+9 | 2024-01-23 | Travel | Car Rental | 200.00 | 0.12 | 24.00 | 224.00 | OK
+
+10 | 2024-01-24 | Professional Services | Consultant Fee | 500.00 | 0.08 | 40.00 | 540.00 | OK
+
+11 | 2024-01-25 | Meals | Coffee Meeting | 25.00 | 0.12 | 3.00 | 28.00 | OK
+
+12 | 2024-01-26 | Travel | Hotel Stay | 400.00 | 0.12 | 48.00 | 448.00 | OK
+
+13 | 2024-01-27 | Office Supplies | Stationery | 100.00 | 0.10 | 10.00 | 110.00 | OK
+
+14 | 2024-01-28 | Meals | Team Outing | 120.00 | 0.13 | 15.60 | 135.60 | OK
+
+15 | 2024-01-29 | Travel | Train Ticket | 75.00 | 0.08 | 6.00 | 81.00 | OK
+
+Category Totals:
+
+Travel: Net = 1000 + 62 + 300 + 200 + 400 + 75 = €2037.00; VAT = 120 + 6.2 + 45 + 24 + 48 + 6 = €249.20; Total = €2286.20
+
+Meals: Net = 140 + 80 + 50 + 25 + 120 = €415.00; VAT = 18.2 + 9.6 + 6.5 + 3 + 15.6 = €52.90; Total = €467.90
+
+Office Supplies: Net = 250 + 150 + 100 = €500.00; VAT = 20 + 15 + 10 = €45.00; Total = €545.00
+
+Professional Services: Net = 500.00; VAT = 40.00; Total = 540.00
+
+Overall Totals:
+Total Net: €2037 + 415 + 500 + 500 = €3452.00
+Total VAT: €249.20 + 52.90 + 45 + 40 = €387.10
+Total Expenses: €3839.10
+
+Issues Flagged: 2 records with issues (Team Dinner: VAT Missing; Taxi Ride: Receipt Incomplete)
+
+Top 3 Categories by Total Amount:
+1. Travel: €2286.20 (60% of total)
+2. Professional Services: €540.00 (14%)
+3. Office Supplies: €545.00 (14%)
+
+These outputs demonstrate the tracking of expenses with VAT calculations, issue flagging for compliance, and aggregation for reporting. The tracker identifies high-cost categories like Travel for budget management and flags non-compliant entries for follow-up.</textarea>
+              <div class="err-msg" id="err-expenseTrackerOutputs">Minimum 1200 characters required.</div>
+            </div>
+
+            <div>
+              <label>Deliverable 3 — Email #1: Subscription vendor (avoid suspension) *</label>
+              <textarea name="emailSubscriptionVendor">Subject: Urgent: Averting Suspension of SaaS Subscription Payment
+
+Dear Vendor Support Team,
+
+I am reaching out regarding an urgent matter with our €250/month SaaS subscription. Due to an internal finance approval delay, the payment has not been processed on time, and we have received notice that the service risks suspension if not settled immediately.
+
+To avoid any disruption to our daily operations, I kindly request that you confirm if we can expedite the payment processing or grant a brief grace period until our approval is finalized. We greatly value the service this tool provides and are committed to resolving this promptly.
+
+Attached for reference are the invoice details and our internal approval tracking number. Please let me know if additional information is needed or if there is a preferred method to expedite this.
+
+Thank you for your understanding and cooperation in this matter.
+
+Best regards,
+
+John Doe
+Operations and Finance Support Specialist
+Company Name
+Email: john.doe@example.com
+Phone: +1 234-567-8901</textarea>
+              <div class="err-msg" id="err-emailSubscriptionVendor">Minimum 350 characters required.</div>
+            </div>
+
+            <div>
+              <label>Deliverable 3 — Email #2: Hotel Vendor (VAT clarification) *</label>
+              <textarea name="emailHotelVendor">Subject: Request for VAT Breakdown on Conference Stay Invoice
+
+Dear Hotel Vendor Accounting Team,
+
+We are processing the reimbursement for the €1,200 conference stay invoice and have noted that the VAT details are not clearly specified, which is necessary for our compliance procedures.
+
+Could you please provide a detailed breakdown of the VAT, including the applicable VAT rate and the exact amount charged for VAT? This information will allow us to finalize the reimbursement accurately and promptly.
+
+Attached is a copy of the invoice for your reference. We appreciate your assistance in clarifying this matter.
+
+Thank you,
+
+Best regards,
+
+John Doe
+Operations and Finance Support Specialist
+Company Name
+Email: john.doe@example.com
+Phone: +1 234-567-8901</textarea>
+              <div class="err-msg" id="err-emailHotelVendor">Minimum 350 characters required.</div>
+            </div>
+
+            <div class="full">
+              <label>Deliverable 3 — Email #3: Internal Project Lead (15:30 deadline) *</label>
+              <textarea name="emailProjectLead"></textarea>
+              <div class="err-msg" id="err-emailProjectLead">Minimum 250 characters required.</div>
+            </div>
+
+            <div>
+              <label>Deliverable 4A — Reimbursement: Team dinner €168 (missing VAT) *</label>
+              <textarea name="reimbursementDinner"></textarea>
+              <div class="err-msg" id="err-reimbursementDinner">Minimum 450 characters required.</div>
+            </div>
+
+            <div>
+              <label>Deliverable 4B — Reimbursement: Taxi €74 (no detailed receipt) *</label>
+              <textarea name="reimbursementTaxi"></textarea>
+              <div class="err-msg" id="err-reimbursementTaxi">Minimum 450 characters required.</div>
+            </div>
+
+            <div class="full">
+              <label>Deliverable 5 — Process improvement proposal (10–15 lines) *</label>
+              <textarea name="processProposal"></textarea>
+              <div class="err-msg" id="err-processProposal">Minimum 700 characters required.</div>
+            </div>
+
+            <div class="full">
+              <label>Deliverable 6 — 7 clarifying questions *</label>
+              <div class="hint">Write numbered questions 1–7</div>
+              <textarea name="clarifyingQuestions"></textarea>
+              <div class="err-msg" id="err-clarifyingQuestions">Minimum 600 characters required.</div>
+            </div>
+
+            <div class="full">
+              <label>Deliverable 7 — Manager summary (exactly 5 lines) *</label>
+              <textarea name="managerSummary" placeholder="Line 1&#10;Line 2&#10;Line 3&#10;Line 4&#10;Line 5"></textarea>
+              <div class="err-msg" id="err-managerSummary">Must contain exactly 5 non-empty lines.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Optional Context</h2>
+          <div class="form-grid">
+            <div class="full">
+              <label>AI Usage Disclosure (optional)</label>
+              <textarea name="aiUsage" placeholder="Describe if and how you used AI..."></textarea>
+            </div>
+            <div class="full">
+              <label>Notes (optional)</label>
+              <textarea name="notes" placeholder="Any additional notes..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="btnrow">
+          <button type="submit" class="btn primary">Submit Final Evaluation</button>
+          <button type="button" class="btn secondary" id="btnSave">Save Draft</button>
+          <button type="button" class="btn secondary" id="btnClear" style="color:var(--error)">Clear Draft</button>
+        </div>
+
+        <div id="status" class="status"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+    const form = document.getElementById('evalForm');
+    const statusBox = document.getElementById('status');
+    const STORAGE_KEY = 'reborrn_eval_draft';
+
+    const MIN_RULES = {
+      fullName: 3,
+      priorityPlan: 800,
+      expenseTrackerOutputs: 1200,
+      emailSubscriptionVendor: 350,
+      emailHotelVendor: 350,
+      emailProjectLead: 250,
+      reimbursementDinner: 450,
+      reimbursementTaxi: 450,
+      processProposal: 700,
+      clarifyingQuestions: 600
+    };
+
+    // --- Autosave Logic ---
+    const saveToLocal = () => {
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    };
+
+    const loadFromLocal = () => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(key => {
+          if (form[key]) form[key].value = data[key];
+        });
+      }
+    };
+
+    form.addEventListener('input', saveToLocal);
+
+    document.getElementById('btnSave').onclick = () => {
+      saveToLocal();
+      showStatus('Draft saved successfully!', 'ok');
+    };
+
+    document.getElementById('btnClear').onclick = () => {
+      if(confirm('Are you sure you want to clear your draft?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        form.reset();
+        showStatus('Draft cleared.', 'ok');
+      }
+    };
+
+    // --- Validation Logic ---
+    const validate = () => {
+      let isValid = true;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Standard Min Length Checks
+      Object.keys(MIN_RULES).forEach(key => {
+        const field = form[key];
+        const error = document.getElementById('err-' + key);
+        if (data[key].trim().length < MIN_RULES[key]) {
+          error.style.display = 'block';
+          isValid = false;
+        } else {
+          error.style.display = 'none';
+        }
+      });
+
+      // Email Format
+      if (!/^\S+@\S+\.\S+$/.test(data.email)) {
+        document.getElementById('err-email').style.display = 'block';
+        isValid = false;
+      }
+
+      // Manager Summary: exactly 5 non-empty lines
+      const summaryLines = data.managerSummary.split('\n').filter(line => line.trim() !== "");
+      const summaryError = document.getElementById('err-managerSummary');
+      if (summaryLines.length !== 5) {
+        summaryError.style.display = 'block';
+        isValid = false;
+      } else {
+        summaryError.style.display = 'none';
+      }
+
+      return isValid;
+    };
+
+    const showStatus = (msg, type) => {
+      statusBox.textContent = msg;
+      statusBox.className = 'status ' + type;
+      statusBox.style.display = 'block';
+      if(type === 'ok') setTimeout(() => { statusBox.style.display = 'none'; }, 4000);
+    };
+
+    // --- Submission ---
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      if (!validate()) {
+        showStatus('Please correct the errors before submitting.', 'err');
+        return;
+      }
+
+      showStatus('Submitting final evaluation...', 'ok');
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        
+        if (result.ok) {
+          localStorage.removeItem(STORAGE_KEY);
+          form.reset();
+          showStatus('Success! Your evaluation has been submitted.', 'ok');
+          window.scrollTo(0, 0);
+        } else {
+          showStatus('Error: ' + result.error, 'err');
+        }
+      } catch (err) {
+        showStatus('Network error. Please try again.', 'err');
+      }
+    };
+
+    window.onload = loadFromLocal;
+  </script>
+</body>
+</html>

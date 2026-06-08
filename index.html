@@ -1,440 +1,769 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ops/Finance Support – Case Study</title>
-  <style>
-    :root{
-      --bg:#0b0f1a; --card:#0f172a; --text:#e5e7eb; --muted:#a3a3a3;
-      --line:rgba(255,255,255,.08); --accent:#7c3aed; --error:#f87171; --success:#22c55e;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(124,58,237,.25), transparent 60%),
-                  radial-gradient(900px 500px at 80% 20%, rgba(34,197,94,.18), transparent 55%),
-                  var(--bg);
-      color:var(--text); line-height:1.45;
-    }
-    .wrap{max-width:1100px; margin:0 auto; padding:40px 16px 80px}
-    .hero{
-      padding:28px 24px; border:1px solid var(--line); border-radius:18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
-    }
-    .badge{
-      display:inline-flex; align-items:center; border:1px solid var(--line);
-      padding:6px 12px; border-radius:999px; color:var(--muted); font-size:12px;
-      background:rgba(255,255,255,.02); margin-bottom: 16px;
-    }
-    h1{margin:0 0 8px; font-size:28px; letter-spacing:.2px}
-    .sub{margin:0 0 24px; color:var(--muted); max-width:70ch}
-    .card{
-      border:1px solid var(--line); background:rgba(255,255,255,.02);
-      border-radius:16px; padding:20px; margin-bottom: 16px;
-    }
-    .card h2{margin:0 0 12px; font-size:18px; color:#fff}
-    .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .full{grid-column: 1 / -1}
-    label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px; font-weight: 500;}
-    input, textarea{
-      width:100%; padding:12px; border-radius:12px; border:1px solid var(--line);
-      background:rgba(0,0,0,.25); color:var(--text); outline:none; font-size: 14px;
-    }
-    input:focus, textarea:focus{border-color: var(--accent)}
-    textarea{min-height:120px; resize:vertical}
-    .hint{font-size:12px; color:var(--accent); font-style:italic; margin-bottom: 8px;}
-    .err-msg{color: var(--error); font-size:12px; margin-top:4px; display:none;}
-    .btnrow{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px}
-    .btn{
-      cursor:pointer; text-decoration:none; border:1px solid var(--line);
-      padding:12px 20px; border-radius:12px; font-weight: 600;
-      transition:.15s ease; font-size: 14px;
-    }
-    .btn.primary{background: var(--accent); color:#fff; border:none}
-    .btn.secondary{background: rgba(255,255,255,.05); color:var(--text)}
-    .status{ margin-top:16px; padding:14px; border-radius:12px; display:none; font-weight: 500;}
-    .status.ok{background:rgba(34,197,94,.15); color:var(--success); border:1px solid var(--success)}
-    .status.err{background:rgba(239,68,68,.15); color:var(--error); border:1px solid var(--error)}
-    @media (max-width:860px){ .form-grid{grid-template-columns:1fr} }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#6c8ee3" />
+<title>Popi &amp; Fernando · France 2026</title>
+<style>
+  :root {
+    --lake:   #5b9bd5;
+    --lake-2: #6c8ee3;
+    --sage:   #7fb0a5;
+    --peach:  #f7b7a3;
+    --rose:   #f3a3b5;
+    --cream:  #fff8f1;
+    --ink:    #34384a;
+    --muted:  #7c8194;
+    --card:   #ffffff;
+    --line:   #ece6dd;
+    --sun:    #ffb86b;
+    --ok:     #59c08a;
+    --shadow: 0 8px 24px rgba(80, 90, 130, 0.10);
+    --shadow-soft: 0 3px 10px rgba(80, 90, 130, 0.07);
+    --radius: 20px;
+    --nav-h: 68px;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 80% -5%, #eaf3ff 0%, rgba(234,243,255,0) 60%),
+      radial-gradient(1000px 500px at -10% 10%, #fff1ea 0%, rgba(255,241,234,0) 55%),
+      var(--cream);
+    line-height: 1.5;
+    padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 12px);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- Header ---------- */
+  header.hero {
+    padding: 28px 4px 12px;
+    text-align: center;
+  }
+  .hero .eyebrow {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--lake-2); font-weight: 700; margin-bottom: 6px;
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: 30px; line-height: 1.15; font-weight: 800;
+    background: linear-gradient(110deg, var(--lake-2), var(--sage) 55%, var(--peach));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .dates {
+    margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; font-weight: 600; font-size: 14px; color: var(--ink);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ---------- Tab views ---------- */
+  .view { display: none; animation: fade .35s ease; }
+  .view.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px);} to { opacity:1; transform:none;} }
+
+  .section-title {
+    font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); font-weight: 700; margin: 22px 6px 12px;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    margin-bottom: 14px; overflow: hidden;
+  }
+
+  /* Summary grid */
+  .summary-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 18px; padding: 16px; box-shadow: var(--shadow-soft);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stat .emoji { font-size: 26px; }
+  .stat .big { font-size: 19px; font-weight: 800; }
+  .stat .small { font-size: 12.5px; color: var(--muted); }
+  .stat.accent-lake { background: linear-gradient(160deg,#eaf3ff,#fff); }
+  .stat.accent-sage { background: linear-gradient(160deg,#eaf6f2,#fff); }
+  .stat.accent-peach{ background: linear-gradient(160deg,#fff1ea,#fff); }
+  .stat.accent-rose { background: linear-gradient(160deg,#fdeef2,#fff); }
+
+  .welcome { padding: 18px; font-size: 15px; color: var(--ink); }
+  .welcome .hi { font-weight: 800; font-size: 17px; }
+  .welcome p { margin: 8px 0 0; color: var(--muted); }
+
+  /* mini progress on home */
+  .home-progress { padding: 16px 18px; }
+  .home-progress .label { display:flex; justify-content: space-between; font-size: 13px; font-weight:700; margin-bottom: 8px; }
+
+  /* ---------- Progress bar ---------- */
+  .progress-track { height: 12px; background: #eef0f6; border-radius: 999px; overflow: hidden; }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--sage), var(--lake-2));
+    border-radius: 999px; transition: width .5s cubic-bezier(.4,1.3,.5,1);
+  }
+
+  /* ---------- Day cards (collapsible) ---------- */
+  .day-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 18px; cursor: pointer; user-select: none;
+  }
+  .day-badge {
+    flex: 0 0 auto; width: 46px; height: 46px; border-radius: 14px;
+    display: grid; place-items: center; font-weight: 800; font-size: 13px;
+    color: #fff; text-align: center; line-height: 1.05;
+    background: linear-gradient(150deg, var(--lake-2), var(--sage));
+  }
+  .day-head .meta { flex: 1; min-width: 0; }
+  .day-head .d-date { font-size: 12px; color: var(--lake-2); font-weight: 700; letter-spacing:.3px;}
+  .day-head .d-title { font-size: 16px; font-weight: 800; }
+  .day-head .chev { transition: transform .3s ease; color: var(--muted); font-size: 18px; }
+  .day.open .chev { transform: rotate(180deg); }
+
+  .day-body { max-height: 0; overflow: hidden; transition: max-height .45s ease; }
+  .day.open .day-body { max-height: 4000px; }
+  .day-body-inner { padding: 4px 16px 16px; }
+
+  /* ---------- Timeline ---------- */
+  .tl { position: relative; margin-left: 6px; padding-left: 22px; }
+  .tl::before {
+    content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
+    width: 2px; background: linear-gradient(var(--lake-2), var(--peach)); opacity: .35;
+  }
+  .item { position: relative; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; }
+  .item::before {
+    content: ""; position: absolute; left: -22px; top: 16px;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--lake-2);
+  }
+  .item.transport::before { border-color: var(--peach); }
+  .item .time {
+    flex: 0 0 auto; font-size: 12px; font-weight: 800; color: var(--lake-2);
+    background: #eef4ff; border-radius: 8px; padding: 2px 8px; margin-top: 2px; white-space: nowrap;
+  }
+  .item.transport .time { color: #d9774f; background: #fff0e9; }
+  .item .body { flex: 1; min-width: 0; }
+  .item .name { font-weight: 700; font-size: 15px; }
+  .item .name .ico { margin-right: 5px; }
+  .item .sub { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+  /* check + maps row */
+  .actions { display: flex; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+
+  label.check {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+    font-size: 12.5px; color: var(--muted); font-weight: 600;
+  }
+  label.check input { display: none; }
+  label.check .box {
+    width: 20px; height: 20px; border-radius: 7px; border: 2px solid #d4d8e4;
+    display: grid; place-items: center; transition: all .2s; background: #fff;
+    font-size: 12px; color: #fff;
+  }
+  label.check input:checked + .box { background: var(--ok); border-color: var(--ok); }
+  label.check input:checked + .box::after { content: "✓"; }
+  label.check input:checked ~ .check-txt { color: var(--ok); text-decoration: line-through; }
+
+  .maps-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 700; text-decoration: none;
+    color: var(--lake-2); background: #eef4ff; border: 1px solid #dbe6ff;
+    padding: 5px 10px; border-radius: 999px; transition: transform .15s;
+  }
+  .maps-btn:active { transform: scale(.95); }
+
+  /* tip pill */
+  .tip {
+    margin-top: 10px; background: linear-gradient(160deg,#fff6ec,#fff);
+    border: 1px dashed var(--sun); border-radius: 14px;
+    padding: 10px 12px; font-size: 12.5px; color: #8a6a2f;
+  }
+  .tip b { color: #d98a2b; }
+
+  /* ---------- Map links list ---------- */
+  .place-group h3 {
+    margin: 18px 6px 10px; font-size: 16px; font-weight: 800;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .place-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px; border-bottom: 1px solid var(--line);
+  }
+  .place-row:last-child { border-bottom: none; }
+  .place-row .p-ico { font-size: 20px; }
+  .place-row .p-name { flex: 1; font-weight: 600; font-size: 14.5px; }
+
+  /* ---------- Checklist view ---------- */
+  .checklist-sticky {
+    position: sticky; top: 0; z-index: 5;
+    background: rgba(255,248,241,.85); backdrop-filter: blur(10px);
+    padding: 12px 0 8px; margin-bottom: 4px;
+  }
+  .reset-btn {
+    width: 100%; margin-top: 12px; border: none; cursor: pointer;
+    background: #fff; color: #d96a6a; border: 1.5px solid #f3d2d2;
+    font-weight: 700; font-size: 14px; padding: 12px; border-radius: 14px;
+    transition: transform .15s;
+  }
+  .reset-btn:active { transform: scale(.97); }
+  .cl-day-title {
+    font-size: 13px; font-weight: 800; color: var(--lake-2);
+    margin: 16px 6px 6px; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .cl-item {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow-soft);
+  }
+  .cl-item .cl-name { flex: 1; font-size: 14px; font-weight: 600; }
+
+  /* ---------- Priority pins ---------- */
+  .prio-group { margin-bottom: 16px; }
+  .prio-head {
+    font-size: 15px; font-weight: 800; padding: 4px 6px 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pin {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 13px; margin: 0 8px 8px 0; font-size: 13px; font-weight: 600;
+    text-decoration: none; color: var(--ink); box-shadow: var(--shadow-soft);
+  }
+  .pins-wrap { display: flex; flex-wrap: wrap; }
+  .prio-must  .pin { background: linear-gradient(160deg,#fff0eb,#fff); border-color:#ffd9cc;}
+  .prio-nice  .pin { background: linear-gradient(160deg,#eef6f3,#fff); border-color:#cfe8df;}
+  .prio-sun   .pin { background: linear-gradient(160deg,#fff6e7,#fff); border-color:#ffe3b0;}
+
+  /* ---------- Notes ---------- */
+  .note-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border-bottom: 1px solid var(--line);
+  }
+  .note-item:last-child { border-bottom: none; }
+  .note-item .n-ico {
+    flex: 0 0 auto; width: 38px; height: 38px; border-radius: 12px;
+    display: grid; place-items: center; font-size: 19px; background: #eef4ff;
+  }
+  .note-item .n-txt { font-size: 14px; padding-top: 6px; }
+  .note-item .n-txt b { display:block; }
+
+  .fernando-banner {
+    background: linear-gradient(135deg, var(--lake-2), var(--sage));
+    color: #fff; border-radius: var(--radius); padding: 18px;
+    box-shadow: var(--shadow); margin-bottom: 4px;
+  }
+  .fernando-banner h2 { margin: 0 0 4px; font-size: 19px; }
+  .fernando-banner p { margin: 0; opacity: .92; font-size: 13.5px; }
+
+  /* ---------- Bottom nav ---------- */
+  nav.bottom {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    height: calc(var(--nav-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(255,255,255,.92); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-around; align-items: stretch;
+  }
+  nav.bottom button {
+    flex: 1; border: none; background: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; color: var(--muted); font-size: 10.5px; font-weight: 700;
+    padding: 6px 0; transition: color .2s;
+  }
+  nav.bottom button .ni { font-size: 20px; transition: transform .2s; }
+  nav.bottom button.active { color: var(--lake-2); }
+  nav.bottom button.active .ni { transform: translateY(-2px) scale(1.12); }
+
+  footer.credit { text-align:center; color: var(--muted); font-size: 11.5px; padding: 18px 0 6px; }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <span class="badge">REBORRN • Ops/Finance Support • Case Study</span>
-      <h1>Expense Operations Portal</h1>
-      <p class="sub">Please complete all deliverables directly in the fields below. Your progress is automatically saved as a draft.</p>
-
-      <form id="evalForm">
-        <div class="card">
-          <h2>Candidate Identity</h2>
-          <div class="form-grid">
-            <div>
-              <label>Full Name *</label>
-              <input required name="fullName" type="text" placeholder="e.g. John Doe" value="John Doe">
-              <div class="err-msg" id="err-fullName">Name is required (min 3 chars).</div>
-            </div>
-            <div>
-              <label>Email *</label>
-              <input required name="email" type="email" placeholder="name@example.com" value="john.doe@example.com">
-              <div class="err-msg" id="err-email">A valid email is required.</div>
-            </div>
-            <div>
-              <label>Phone (optional)</label>
-              <input name="phone" type="text" placeholder="+1 ..." value="+1 234-567-8901">
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Case Study Deliverables</h2>
-          <div class="form-grid">
-            <div class="full">
-              <label>Deliverable 1 — Priority Plan (P0/P1/P2) *</label>
-              <div class="hint">Include table-like structure: Item | Priority | Reason | ETA | Next step</div>
-              <textarea name="priorityPlan">Item | Priority | Reason | ETA | Next step
-
-1. Resolve SaaS subscription payment to avoid service suspension | P0 | Critical tool for daily operations, potential productivity loss if suspended | 1 business day | Contact finance team for immediate payment approval and process the transaction.
-
-2. Clarify VAT discrepancies with hotel vendor | P1 | Conference expenses are essential for team development and skill building | 3 business days | Send email requesting detailed VAT breakdown and supporting documents.
-
-3. Address missing VAT on team dinner receipt | P1 | Promotes fair procurement practices and compliance | 2 business days | Reach out to employee for additional documentation or assess if reimbursement can proceed without VAT if within policy thresholds.
-
-4. Secure detailed receipt for taxi expense | P2 | Ensures accountability and prevents fraud | 5 business days | Contact employee directly via phone or email to obtain full receipt details.
-
-5. Implement automated VAT validation in expense tracker | P1 | Reduces manual error and speeds up processing | 2 weeks | Develop and test validation script, integrate with expense system.
-
-6. Review and update expense policy for clear guidelines | P2 | Prevents future unclear cases | 3 weeks | Schedule review session with stakeholders and document changes.
-
-7. Train team on proper receipt and VAT requirements | P2 | Improves overall compliance | 4 weeks | Organize training sessions and provide reference materials.
-
-8. Monitor top expense categories for optimization | P2 | Identifies areas for cost saving | 1 month | Run quarterly reports and flag unusual spending patterns.
-
-Additional Priority Items:
-
-9. Set up vendor risk assessment for service continuity | P1 | Mitigates risks from suspensions | 1 week | Create checklist for vendor evaluations during onboarding.
-
-10. Automate email notifications for pending expenses | P2 | Improves communication and reduces follow-ups | 10 days | Integrate with existing expense tool or develop simple notification system.
-
-This priority plan addresses immediate risks like service interruptions while laying groundwork for long-term improvements in expense management, compliance, and efficiency. P0 focuses on critical issues threatening operations, P1 on high-impact items with timelines under a week to maintain momentum, and P2 on strategic enhancements to be tackled systematically.</textarea>
-              <div class="err-msg" id="err-priorityPlan">Minimum 800 characters required.</div>
-            </div>
-
-            <div class="full">
-              <label>Deliverable 2 — Expense Tracker Outputs (formulas + totals) *</label>
-              <div class="hint">Must include: formulas (net, VAT, issue flag), totals, top 3 categories</div>
-              <textarea name="expenseTrackerOutputs">Expense Tracker Outputs:
-
-Formulas Used:
-- Net Amount = Total Amount - VAT Amount
-- VAT Amount = Net Amount * VAT Rate
-- Total Amount = Net Amount + VAT Amount
-- Issue Flag = "VAT Missing" if VAT not calculated or receipt lacks VAT details; "Receipt Incomplete" if vendor or date missing; "OK" otherwise.
-
-Sample Expense Records:
-
-ID | Date | Category | Vendor | Net Amount (€) | VAT Rate (%) | VAT Amount (€) | Total Amount (€) | Issue Flag
-
-1 | 2024-01-15 | Travel | Hotel Conference | 1000.00 | 0.12 | 120.00 | 1120.00 | OK
-
-2 | 2024-01-16 | Meals | Team Dinner | 140.00 | 0.13 | 18.20 | 158.20 | VAT Missing
-
-3 | 2024-01-17 | Travel | Taxi Ride | 62.00 | 0.10 | 6.20 | 68.20 | Receipt Incomplete
-
-4 | 2024-01-18 | Office Supplies | SaaS Subscription | 250.00 | 0.08 | 20.00 | 270.00 | OK
-
-5 | 2024-01-19 | Meals | Client Lunch | 80.00 | 0.12 | 9.60 | 89.60 | OK
-
-6 | 2024-01-20 | Travel | Flight Tickets | 300.00 | 0.15 | 45.00 | 345.00 | OK
-
-7 | 2024-01-21 | Office Supplies | Software License | 150.00 | 0.10 | 15.00 | 165.00 | OK
-
-8 | 2024-01-22 | Meals | Team Breakfast | 50.00 | 0.13 | 6.50 | 56.50 | OK
-
-9 | 2024-01-23 | Travel | Car Rental | 200.00 | 0.12 | 24.00 | 224.00 | OK
-
-10 | 2024-01-24 | Professional Services | Consultant Fee | 500.00 | 0.08 | 40.00 | 540.00 | OK
-
-11 | 2024-01-25 | Meals | Coffee Meeting | 25.00 | 0.12 | 3.00 | 28.00 | OK
-
-12 | 2024-01-26 | Travel | Hotel Stay | 400.00 | 0.12 | 48.00 | 448.00 | OK
-
-13 | 2024-01-27 | Office Supplies | Stationery | 100.00 | 0.10 | 10.00 | 110.00 | OK
-
-14 | 2024-01-28 | Meals | Team Outing | 120.00 | 0.13 | 15.60 | 135.60 | OK
-
-15 | 2024-01-29 | Travel | Train Ticket | 75.00 | 0.08 | 6.00 | 81.00 | OK
-
-Category Totals:
-
-Travel: Net = 1000 + 62 + 300 + 200 + 400 + 75 = €2037.00; VAT = 120 + 6.2 + 45 + 24 + 48 + 6 = €249.20; Total = €2286.20
-
-Meals: Net = 140 + 80 + 50 + 25 + 120 = €415.00; VAT = 18.2 + 9.6 + 6.5 + 3 + 15.6 = €52.90; Total = €467.90
-
-Office Supplies: Net = 250 + 150 + 100 = €500.00; VAT = 20 + 15 + 10 = €45.00; Total = €545.00
-
-Professional Services: Net = 500.00; VAT = 40.00; Total = 540.00
-
-Overall Totals:
-Total Net: €2037 + 415 + 500 + 500 = €3452.00
-Total VAT: €249.20 + 52.90 + 45 + 40 = €387.10
-Total Expenses: €3839.10
-
-Issues Flagged: 2 records with issues (Team Dinner: VAT Missing; Taxi Ride: Receipt Incomplete)
-
-Top 3 Categories by Total Amount:
-1. Travel: €2286.20 (60% of total)
-2. Professional Services: €540.00 (14%)
-3. Office Supplies: €545.00 (14%)
-
-These outputs demonstrate the tracking of expenses with VAT calculations, issue flagging for compliance, and aggregation for reporting. The tracker identifies high-cost categories like Travel for budget management and flags non-compliant entries for follow-up.</textarea>
-              <div class="err-msg" id="err-expenseTrackerOutputs">Minimum 1200 characters required.</div>
-            </div>
-
-            <div>
-              <label>Deliverable 3 — Email #1: Subscription vendor (avoid suspension) *</label>
-              <textarea name="emailSubscriptionVendor">Subject: Urgent: Averting Suspension of SaaS Subscription Payment
-
-Dear Vendor Support Team,
-
-I am reaching out regarding an urgent matter with our €250/month SaaS subscription. Due to an internal finance approval delay, the payment has not been processed on time, and we have received notice that the service risks suspension if not settled immediately.
-
-To avoid any disruption to our daily operations, I kindly request that you confirm if we can expedite the payment processing or grant a brief grace period until our approval is finalized. We greatly value the service this tool provides and are committed to resolving this promptly.
-
-Attached for reference are the invoice details and our internal approval tracking number. Please let me know if additional information is needed or if there is a preferred method to expedite this.
-
-Thank you for your understanding and cooperation in this matter.
-
-Best regards,
-
-John Doe
-Operations and Finance Support Specialist
-Company Name
-Email: john.doe@example.com
-Phone: +1 234-567-8901</textarea>
-              <div class="err-msg" id="err-emailSubscriptionVendor">Minimum 350 characters required.</div>
-            </div>
-
-            <div>
-              <label>Deliverable 3 — Email #2: Hotel Vendor (VAT clarification) *</label>
-              <textarea name="emailHotelVendor">Subject: Request for VAT Breakdown on Conference Stay Invoice
-
-Dear Hotel Vendor Accounting Team,
-
-We are processing the reimbursement for the €1,200 conference stay invoice and have noted that the VAT details are not clearly specified, which is necessary for our compliance procedures.
-
-Could you please provide a detailed breakdown of the VAT, including the applicable VAT rate and the exact amount charged for VAT? This information will allow us to finalize the reimbursement accurately and promptly.
-
-Attached is a copy of the invoice for your reference. We appreciate your assistance in clarifying this matter.
-
-Thank you,
-
-Best regards,
-
-John Doe
-Operations and Finance Support Specialist
-Company Name
-Email: john.doe@example.com
-Phone: +1 234-567-8901</textarea>
-              <div class="err-msg" id="err-emailHotelVendor">Minimum 350 characters required.</div>
-            </div>
-
-            <div class="full">
-              <label>Deliverable 3 — Email #3: Internal Project Lead (15:30 deadline) *</label>
-              <textarea name="emailProjectLead"></textarea>
-              <div class="err-msg" id="err-emailProjectLead">Minimum 250 characters required.</div>
-            </div>
-
-            <div>
-              <label>Deliverable 4A — Reimbursement: Team dinner €168 (missing VAT) *</label>
-              <textarea name="reimbursementDinner"></textarea>
-              <div class="err-msg" id="err-reimbursementDinner">Minimum 450 characters required.</div>
-            </div>
-
-            <div>
-              <label>Deliverable 4B — Reimbursement: Taxi €74 (no detailed receipt) *</label>
-              <textarea name="reimbursementTaxi"></textarea>
-              <div class="err-msg" id="err-reimbursementTaxi">Minimum 450 characters required.</div>
-            </div>
-
-            <div class="full">
-              <label>Deliverable 5 — Process improvement proposal (10–15 lines) *</label>
-              <textarea name="processProposal"></textarea>
-              <div class="err-msg" id="err-processProposal">Minimum 700 characters required.</div>
-            </div>
-
-            <div class="full">
-              <label>Deliverable 6 — 7 clarifying questions *</label>
-              <div class="hint">Write numbered questions 1–7</div>
-              <textarea name="clarifyingQuestions"></textarea>
-              <div class="err-msg" id="err-clarifyingQuestions">Minimum 600 characters required.</div>
-            </div>
-
-            <div class="full">
-              <label>Deliverable 7 — Manager summary (exactly 5 lines) *</label>
-              <textarea name="managerSummary" placeholder="Line 1&#10;Line 2&#10;Line 3&#10;Line 4&#10;Line 5"></textarea>
-              <div class="err-msg" id="err-managerSummary">Must contain exactly 5 non-empty lines.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Optional Context</h2>
-          <div class="form-grid">
-            <div class="full">
-              <label>AI Usage Disclosure (optional)</label>
-              <textarea name="aiUsage" placeholder="Describe if and how you used AI..."></textarea>
-            </div>
-            <div class="full">
-              <label>Notes (optional)</label>
-              <textarea name="notes" placeholder="Any additional notes..."></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="btnrow">
-          <button type="submit" class="btn primary">Submit Final Evaluation</button>
-          <button type="button" class="btn secondary" id="btnSave">Save Draft</button>
-          <button type="button" class="btn secondary" id="btnClear" style="color:var(--error)">Clear Draft</button>
-        </div>
-
-        <div id="status" class="status"></div>
-      </form>
+<div class="app">
+
+  <header class="hero">
+    <div class="eyebrow">✦ Travel Itinerary ✦</div>
+    <h1>Popi &amp; Fernando · France 2026</h1>
+    <div class="dates">📅 9–13 June 2026</div>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <section id="home" class="view active">
+    <div class="card welcome">
+      <div class="hi">Bonjour, Popi! 👋</div>
+      <p>Five gentle days between an alpine lake town and France's gastronomic capital — all on foot, bus, metro and funicular. No car, no rush. Let's go. 🚶‍♀️🚌</p>
     </div>
-  </div>
 
-  <script>
-    const ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
-    const form = document.getElementById('evalForm');
-    const statusBox = document.getElementById('status');
-    const STORAGE_KEY = 'reborrn_eval_draft';
+    <div class="section-title">Trip at a glance</div>
+    <div class="summary-grid">
+      <div class="stat accent-lake">
+        <span class="emoji">🏔️</span>
+        <span class="big">1.5 days</span>
+        <span class="small">Annecy &amp; the lake</span>
+      </div>
+      <div class="stat accent-peach">
+        <span class="emoji">🦁</span>
+        <span class="big">2.5 days</span>
+        <span class="small">Lyon &amp; old town</span>
+      </div>
+      <div class="stat accent-sage">
+        <span class="emoji">🚫🚗</span>
+        <span class="big">No car</span>
+        <span class="small">Zero parking stress</span>
+      </div>
+      <div class="stat accent-rose">
+        <span class="emoji">🚌</span>
+        <span class="big">Walk + transit</span>
+        <span class="small">Bus · metro · funicular</span>
+      </div>
+    </div>
 
-    const MIN_RULES = {
-      fullName: 3,
-      priorityPlan: 800,
-      expenseTrackerOutputs: 1200,
-      emailSubscriptionVendor: 350,
-      emailHotelVendor: 350,
-      emailProjectLead: 250,
-      reimbursementDinner: 450,
-      reimbursementTaxi: 450,
-      processProposal: 700,
-      clarifyingQuestions: 600
-    };
+    <div class="section-title">Your progress</div>
+    <div class="card home-progress">
+      <div class="label"><span>Adventure completed</span><span id="homePct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="homeFill"></div></div>
+    </div>
 
-    // --- Autosave Logic ---
-    const saveToLocal = () => {
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    };
+    <div class="section-title">Route</div>
+    <div class="card welcome">
+      <p style="margin:0;color:var(--ink)">
+        ✈️ <b>Athens → Lyon</b> (9 Jun, 12:35)<br>
+        🚌 <b>Lyon Airport → Annecy</b> (15:25–16:50)<br>
+        🚌 <b>Annecy → Lyon</b> (10 Jun, 19:15–21:00)<br>
+        🦁 <b>Lyon</b> until departure on 13 Jun
+      </p>
+    </div>
+  </section>
 
-    const loadFromLocal = () => {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const data = JSON.parse(saved);
-        Object.keys(data).forEach(key => {
-          if (form[key]) form[key].value = data[key];
-        });
-      }
-    };
+  <!-- ============ ITINERARY ============ -->
+  <section id="itinerary" class="view">
+    <div class="section-title">Day-by-day</div>
+    <div id="daysContainer"></div>
+  </section>
 
-    form.addEventListener('input', saveToLocal);
+  <!-- ============ MAP LINKS ============ -->
+  <section id="maps" class="view">
+    <div class="section-title">Open any spot in Google Maps</div>
+    <div class="place-group">
+      <h3>🏔️ Annecy</h3>
+      <div class="card" id="annecyPlaces"></div>
+    </div>
+    <div class="place-group">
+      <h3>🦁 Lyon</h3>
+      <div class="card" id="lyonPlaces"></div>
+    </div>
+  </section>
 
-    document.getElementById('btnSave').onclick = () => {
-      saveToLocal();
-      showStatus('Draft saved successfully!', 'ok');
-    };
+  <!-- ============ CHECKLIST ============ -->
+  <section id="checklist" class="view">
+    <div class="checklist-sticky">
+      <div class="section-title" style="margin-top:6px">Checklist</div>
+      <div class="card home-progress">
+        <div class="label"><span>Completed</span><span id="clPct">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="clFill"></div></div>
+      </div>
+      <button class="reset-btn" id="resetBtn">↺ Reset checklist</button>
+    </div>
+    <div id="checklistContainer"></div>
+  </section>
 
-    document.getElementById('btnClear').onclick = () => {
-      if(confirm('Are you sure you want to clear your draft?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        form.reset();
-        showStatus('Draft cleared.', 'ok');
-      }
-    };
+  <!-- ============ NOTES ============ -->
+  <section id="notes" class="view">
+    <div class="section-title">Fernando Priority List</div>
+    <div class="fernando-banner">
+      <h2>🧭 Fernando's picks</h2>
+      <p>What to prioritise if the days fill up — sorted by vibe.</p>
+    </div>
 
-    // --- Validation Logic ---
-    const validate = () => {
-      let isValid = true;
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+    <div class="card" style="padding:16px;margin-top:14px">
+      <div class="prio-group prio-must">
+        <div class="prio-head">🔥 Must See</div>
+        <div class="pins-wrap" id="prioMust"></div>
+      </div>
+      <div class="prio-group prio-nice">
+        <div class="prio-head">👍 Nice to Have</div>
+        <div class="pins-wrap" id="prioNice"></div>
+      </div>
+      <div class="prio-group prio-sun" style="margin-bottom:0">
+        <div class="prio-head">🌅 Best for sunset / evening</div>
+        <div class="pins-wrap" id="prioSun"></div>
+      </div>
+    </div>
 
-      // Standard Min Length Checks
-      Object.keys(MIN_RULES).forEach(key => {
-        const field = form[key];
-        const error = document.getElementById('err-' + key);
-        if (data[key].trim().length < MIN_RULES[key]) {
-          error.style.display = 'block';
-          isValid = false;
-        } else {
-          error.style.display = 'none';
-        }
-      });
+    <div class="section-title">Useful Notes</div>
+    <div class="card" id="notesList"></div>
 
-      // Email Format
-      if (!/^\S+@\S+\.\S+$/.test(data.email)) {
-        document.getElementById('err-email').style.display = 'block';
-        isValid = false;
-      }
+    <footer class="credit">Made with 💙 for Popi · Bon voyage!</footer>
+  </section>
 
-      // Manager Summary: exactly 5 non-empty lines
-      const summaryLines = data.managerSummary.split('\n').filter(line => line.trim() !== "");
-      const summaryError = document.getElementById('err-managerSummary');
-      if (summaryLines.length !== 5) {
-        summaryError.style.display = 'block';
-        isValid = false;
-      } else {
-        summaryError.style.display = 'none';
-      }
+</div>
 
-      return isValid;
-    };
+<!-- ============ BOTTOM NAV ============ -->
+<nav class="bottom">
+  <button data-tab="home" class="active"><span class="ni">🏠</span>Home</button>
+  <button data-tab="itinerary"><span class="ni">🗓️</span>Itinerary</button>
+  <button data-tab="maps"><span class="ni">📍</span>Map Links</button>
+  <button data-tab="checklist"><span class="ni">✅</span>Checklist</button>
+  <button data-tab="notes"><span class="ni">📝</span>Notes</button>
+</nav>
 
-    const showStatus = (msg, type) => {
-      statusBox.textContent = msg;
-      statusBox.className = 'status ' + type;
-      statusBox.style.display = 'block';
-      if(type === 'ok') setTimeout(() => { statusBox.style.display = 'none'; }, 4000);
-    };
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const gmaps = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 
-    // --- Submission ---
-    form.onsubmit = async (e) => {
-      e.preventDefault();
-      if (!validate()) {
-        showStatus('Please correct the errors before submitting.', 'err');
-        return;
-      }
+// Master list of locations for the Map Links tab
+const annecyPlaces = [
+  ["🏘️","Vieille Ville Annecy","Vieille Ville Annecy France"],
+  ["🏰","Palais de l'Île","Palais de l'Île Annecy France"],
+  ["🌊","Canal du Thiou","Canal du Thiou Annecy France"],
+  ["💕","Pont des Amours","Pont des Amours Annecy France"],
+  ["🌳","Jardins de l'Europe","Jardins de l'Europe Annecy France"],
+  ["🏞️","Lake Annecy","Lake Annecy France"],
+  ["🌅","Le Pâquier","Le Pâquier Annecy France"],
+  ["🏯","Château d'Annecy","Château d'Annecy France"],
+  ["🏛️","Imperial Palace Annecy","Imperial Palace Annecy France"],
+  ["🏖️","Plage d'Albigny","Plage d'Albigny Annecy France"]
+];
+const lyonPlaces = [
+  ["🟦","Place Bellecour","Place Bellecour Lyon France"],
+  ["🛍️","Rue de la République Lyon","Rue de la République Lyon France"],
+  ["🏘️","Vieux Lyon","Vieux Lyon France"],
+  ["⛪","Cathédrale Saint-Jean-Baptiste","Cathédrale Saint-Jean-Baptiste Lyon France"],
+  ["🚪","Traboules Lyon","Traboules Vieux Lyon France"],
+  ["⛪","Basilique Notre-Dame de Fourvière","Basilique Notre-Dame de Fourvière Lyon France"],
+  ["🏛️","Théâtre Gallo-Romain","Théâtre Gallo-Romain de Fourvière Lyon France"],
+  ["🌳","Parc de la Tête d'Or","Parc de la Tête d'Or Lyon France"],
+  ["🎨","Croix-Rousse","Croix-Rousse Lyon France"],
+  ["🖼️","Mur des Canuts","Mur des Canuts Lyon France"],
+  ["🏛️","Hôtel de Ville de Lyon","Hôtel de Ville de Lyon France"],
+  ["🎭","Opéra National de Lyon","Opéra National de Lyon France"],
+  ["⛲","Place des Terreaux","Place des Terreaux Lyon France"],
+  ["⛲","Place des Jacobins","Place des Jacobins Lyon France"],
+  ["🌉","Rhône riverside Lyon","Berges du Rhône Lyon France"],
+  ["🌉","Saône riverside Lyon","Quais de Saône Lyon France"]
+];
 
-      showStatus('Submitting final evaluation...', 'ok');
+// Day-by-day itinerary. id = stable key for localStorage.
+const days = [
+  {
+    badge:"DAY 1", date:"Tue · 9 June",
+    title:"Arrival + Annecy Evening", emoji:"✈️",
+    items:[
+      {id:"d1-arr", time:"12:35", icon:"🛬", name:"Arrival at Lyon Airport", sub:"Lyon Saint-Exupéry (LYS), flight from Athens", transport:true, map:"Lyon Saint-Exupéry Airport France"},
+      {id:"d1-bus", time:"15:25", icon:"🚌", name:"Bus to Annecy", sub:"Departs Lyon Airport coach station", transport:true, map:"Lyon Saint-Exupéry Airport France"},
+      {id:"d1-ann", time:"16:50", icon:"🏔️", name:"Arrival in Annecy", sub:"Welcome to the Venice of the Alps", transport:true, map:"Annecy France"},
+      {id:"d1-chk", time:"~17:00", icon:"🧳", name:"Check-in / freshen up", sub:"Drop bags, recharge a little"},
+      {id:"d1-vv",  time:"Eve", icon:"🏘️", name:"Evening walk in Vieille Ville", sub:"Pastel houses & cobbled lanes", map:"Vieille Ville Annecy France"},
+      {id:"d1-pi",  time:"Eve", icon:"🏰", name:"Palais de l'Île", sub:"The iconic little castle on the canal", map:"Palais de l'Île Annecy France"},
+      {id:"d1-ct",  time:"Eve", icon:"🌊", name:"Canal du Thiou", sub:"France's clearest canal", map:"Canal du Thiou Annecy France"},
+      {id:"d1-pa",  time:"Eve", icon:"💕", name:"Pont des Amours", sub:"The romantic Lovers' Bridge", map:"Pont des Amours Annecy France"},
+      {id:"d1-je",  time:"Eve", icon:"🌳", name:"Jardins de l'Europe", sub:"Leafy lakeside gardens", map:"Jardins de l'Europe Annecy France"},
+      {id:"d1-sun", time:"Sunset", icon:"🌅", name:"Sunset walk by Lake Annecy", sub:"Golden hour on the water", map:"Lake Annecy France"}
+    ],
+    tip:"Fernando tip: arrive in the old town just before golden hour — the canal reflections are unreal."
+  },
+  {
+    badge:"DAY 2", date:"Wed · 10 June",
+    title:"Annecy Full Day + Lyon Transfer", emoji:"🏞️",
+    items:[
+      {id:"d2-lake", time:"Morning", icon:"🚶‍♀️", name:"Morning lake walk", sub:"Cool, quiet, gorgeous light", map:"Lake Annecy France"},
+      {id:"d2-pa",   time:"Morning", icon:"💕", name:"Pont des Amours", sub:"Revisit by daylight", map:"Pont des Amours Annecy France"},
+      {id:"d2-pq",   time:"Morning", icon:"🌅", name:"Le Pâquier", sub:"Big lawn with mountain backdrop", map:"Le Pâquier Annecy France"},
+      {id:"d2-je",   time:"Late AM", icon:"🌳", name:"Jardins de l'Europe", sub:"Shady stroll between sights", map:"Jardins de l'Europe Annecy France"},
+      {id:"d2-ch",   time:"Midday", icon:"🏯", name:"Château d'Annecy", sub:"Hilltop castle & city views", map:"Château d'Annecy France"},
+      {id:"d2-boat", time:"Optional", icon:"⛵", name:"Boat ride / pedal boat", sub:"Only if the weather is good ☀️", map:"Lake Annecy boat rental France"},
+      {id:"d2-bus",  time:"19:15", icon:"🚌", name:"Bus from Annecy to Lyon", sub:"Departs Annecy", transport:true, map:"Gare Routière Annecy France"},
+      {id:"d2-lyon", time:"21:00", icon:"🦁", name:"Arrival in Lyon", sub:"Check in & settle", transport:true, map:"Lyon France"},
+      {id:"d2-eve",  time:"Night", icon:"🌃", name:"Short evening walk", sub:"Place Bellecour / Rhône riverside — only if not too tired", map:"Place Bellecour Lyon France"}
+    ],
+    tip:"Fernando tip: do the lake & château in the morning, keep the afternoon flexible so the bus never feels rushed."
+  },
+  {
+    badge:"DAY 3", date:"Thu · 11 June",
+    title:"Historic Lyon", emoji:"🏛️",
+    items:[
+      {id:"d3-bell", time:"Morning", icon:"🟦", name:"Place Bellecour", sub:"Europe's huge central square", map:"Place Bellecour Lyon France"},
+      {id:"d3-rep",  time:"Morning", icon:"🛍️", name:"Rue de la République", sub:"Grand pedestrian boulevard", map:"Rue de la République Lyon France"},
+      {id:"d3-vl",   time:"Late AM", icon:"🏘️", name:"Vieux Lyon", sub:"Renaissance old town", map:"Vieux Lyon France"},
+      {id:"d3-cath", time:"Late AM", icon:"⛪", name:"Cathédrale Saint-Jean-Baptiste", sub:"Astronomical clock inside", map:"Cathédrale Saint-Jean-Baptiste Lyon France"},
+      {id:"d3-trab", time:"Midday", icon:"🚪", name:"Traboules", sub:"Hidden passageways between streets", map:"Traboules Vieux Lyon France"},
+      {id:"d3-fun",  time:"Afternoon", icon:"🚡", name:"Funicular to Fourvière", sub:"Ride up the hill from Vieux Lyon", transport:true, map:"Funiculaire Fourvière Lyon France"},
+      {id:"d3-bas",  time:"Afternoon", icon:"⛪", name:"Basilique Notre-Dame de Fourvière", sub:"Dazzling hilltop basilica", map:"Basilique Notre-Dame de Fourvière Lyon France"},
+      {id:"d3-thtr", time:"Afternoon", icon:"🏛️", name:"Théâtre Gallo-Romain", sub:"Ancient Roman amphitheatre", map:"Théâtre Gallo-Romain de Fourvière Lyon France"},
+      {id:"d3-sun",  time:"Sunset", icon:"🌅", name:"Sunset view from Fourvière", sub:"Best panorama over Lyon", map:"Esplanade de Fourvière Lyon France"},
+      {id:"d3-down", time:"Evening", icon:"🚶", name:"Walk back down to Vieux Lyon", sub:"If you're feeling comfortable", map:"Vieux Lyon France"}
+    ],
+    tip:"Fernando tip: take the funicular up and walk down — your knees will thank you and the views unfold as you descend."
+  },
+  {
+    badge:"DAY 4", date:"Fri · 12 June",
+    title:"Local Lyon", emoji:"🎨",
+    items:[
+      {id:"d4-parc", time:"Morning", icon:"🌳", name:"Parc de la Tête d'Or", sub:"Lake, free zoo & rose garden", map:"Parc de la Tête d'Or Lyon France"},
+      {id:"d4-cr",   time:"Late AM", icon:"🎨", name:"Croix-Rousse", sub:"The bohemian silk-weavers' hill", map:"Croix-Rousse Lyon France"},
+      {id:"d4-mur",  time:"Late AM", icon:"🖼️", name:"Mur des Canuts", sub:"Giant trompe-l'œil mural", map:"Mur des Canuts Lyon France"},
+      {id:"d4-hdv",  time:"Afternoon", icon:"🏛️", name:"Hôtel de Ville", sub:"Grand 17th-c. city hall", map:"Hôtel de Ville de Lyon France"},
+      {id:"d4-opera",time:"Afternoon", icon:"🎭", name:"Opéra National de Lyon", sub:"Black-glass modern dome", map:"Opéra National de Lyon France"},
+      {id:"d4-terr", time:"Afternoon", icon:"⛲", name:"Place des Terreaux", sub:"Bartholdi fountain & museum", map:"Place des Terreaux Lyon France"},
+      {id:"d4-jac",  time:"Afternoon", icon:"⛲", name:"Place des Jacobins", sub:"Elegant marble fountain square", map:"Place des Jacobins Lyon France"},
+      {id:"d4-riv",  time:"Evening", icon:"🌉", name:"Evening walk along Rhône & Saône", sub:"Riverside lights & péniche bars", map:"Berges du Rhône Lyon France"}
+    ],
+    tip:"Fernando tip: Croix-Rousse is steep — wander down through the traboules toward Terreaux rather than climbing up."
+  },
+  {
+    badge:"DAY 5", date:"Sat · 13 June",
+    title:"Final Morning / Departure", emoji:"👋",
+    items:[
+      {id:"d5-bf",   time:"Morning", icon:"☕", name:"Easy breakfast", sub:"Slow start, no alarm needed"},
+      {id:"d5-pi",   time:"Morning", icon:"🚶", name:"Presqu'île walk", sub:"The peninsula between the rivers", map:"Presqu'île Lyon France"},
+      {id:"d5-jac",  time:"Morning", icon:"⛲", name:"Place des Jacobins", sub:"One last pretty square", map:"Place des Jacobins Lyon France"},
+      {id:"d5-shop", time:"Late AM", icon:"🛍️", name:"Last shopping / coffee", sub:"Souvenirs & a final café"},
+      {id:"d5-dep",  time:"Flexible", icon:"✈️", name:"Departure", sub:"Head out depending on flight time", transport:true, map:"Lyon Saint-Exupéry Airport France"}
+    ],
+    tip:"Fernando tip: keep luggage light this morning and leave a generous buffer to reach the airport by transit."
+  }
+];
 
-      const formData = new FormData(form);
-      const payload = Object.fromEntries(formData.entries());
+// Priority pins
+const priorities = {
+  must: [
+    ["🏰","Palais de l'Île","Palais de l'Île Annecy France"],
+    ["🏞️","Lake Annecy","Lake Annecy France"],
+    ["🏘️","Vieux Lyon","Vieux Lyon France"],
+    ["⛪","Basilique de Fourvière","Basilique Notre-Dame de Fourvière Lyon France"],
+    ["🚪","Traboules","Traboules Vieux Lyon France"],
+    ["🟦","Place Bellecour","Place Bellecour Lyon France"]
+  ],
+  nice: [
+    ["🏯","Château d'Annecy","Château d'Annecy France"],
+    ["🌳","Parc de la Tête d'Or","Parc de la Tête d'Or Lyon France"],
+    ["🖼️","Mur des Canuts","Mur des Canuts Lyon France"],
+    ["🎨","Croix-Rousse","Croix-Rousse Lyon France"],
+    ["🏛️","Théâtre Gallo-Romain","Théâtre Gallo-Romain de Fourvière Lyon France"],
+    ["⛲","Place des Terreaux","Place des Terreaux Lyon France"]
+  ],
+  sun: [
+    ["🌅","Sunset by Lake Annecy","Lake Annecy France"],
+    ["💕","Pont des Amours","Pont des Amours Annecy France"],
+    ["🌄","Fourvière viewpoint","Esplanade de Fourvière Lyon France"],
+    ["🌉","Rhône riverside","Berges du Rhône Lyon France"],
+    ["🌉","Saône riverside","Quais de Saône Lyon France"],
+    ["🌳","Jardins de l'Europe","Jardins de l'Europe Annecy France"]
+  ]
+};
 
-      try {
-        const res = await fetch(ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-        const result = await res.json();
-        
-        if (result.ok) {
-          localStorage.removeItem(STORAGE_KEY);
-          form.reset();
-          showStatus('Success! Your evaluation has been submitted.', 'ok');
-          window.scrollTo(0, 0);
-        } else {
-          showStatus('Error: ' + result.error, 'err');
-        }
-      } catch (err) {
-        showStatus('Network error. Please try again.', 'err');
-      }
-    };
+// Useful notes
+const notes = [
+  ["🚫🚗","No car needed","Everything on this trip is reachable on foot or by public transport."],
+  ["🚶‍♀️","Annecy is very walkable","The old town, canals and lakefront are all a short stroll apart."],
+  ["🚇","Lyon is easy by transit","Metro, tram, bus and funicular cover the whole city — grab a day pass."],
+  ["⏳","Keep some free time","Leave gaps every day for cafés, people-watching and the unexpected."],
+  ["👟","Wear comfortable shoes","Cobblestones, hills and traboules add up — comfy footwear wins."],
+  ["🌤️","Check the weather","Especially before any boat ride or lake activity in Annecy."]
+];
 
-    window.onload = loadFromLocal;
-  </script>
+/* ============================================================
+   RENDER
+   ============================================================ */
+function mapsBtn(query){
+  return `<a class="maps-btn" href="${gmaps(query)}" target="_blank" rel="noopener">📍 Maps</a>`;
+}
+
+// ---- Itinerary day cards ----
+function renderDays(){
+  const c = document.getElementById('daysContainer');
+  c.innerHTML = days.map((d, i) => {
+    const items = d.items.map(it => `
+      <div class="item ${it.transport ? 'transport':''}">
+        <span class="time">${it.time}</span>
+        <div class="body">
+          <div class="name"><span class="ico">${it.icon}</span>${it.name}</div>
+          ${it.sub ? `<div class="sub">${it.sub}</div>` : ''}
+          <div class="actions">
+            <label class="check">
+              <input type="checkbox" data-key="${it.id}">
+              <span class="box"></span>
+              <span class="check-txt">Done</span>
+            </label>
+            ${it.map ? mapsBtn(it.map) : ''}
+          </div>
+        </div>
+      </div>`).join('');
+    const tipHtml = d.tip
+      ? `<div class="tip"><b>💡 ${d.tip.split(':')[0]}:</b>${d.tip.split(':').slice(1).join(':')}</div>`
+      : '';
+    return `
+      <div class="card day ${i===0?'open':''}">
+        <div class="day-head" data-day="${i}">
+          <div class="day-badge">${d.emoji}<br>${d.badge}</div>
+          <div class="meta">
+            <div class="d-date">${d.date}</div>
+            <div class="d-title">${d.title}</div>
+          </div>
+          <div class="chev">▾</div>
+        </div>
+        <div class="day-body">
+          <div class="day-body-inner">
+            <div class="tl">${items}</div>
+            ${tipHtml}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  c.querySelectorAll('.day-head').forEach(h => {
+    h.addEventListener('click', () => h.closest('.day').classList.toggle('open'));
+  });
+}
+
+// ---- Map links ----
+function renderPlaces(){
+  const fill = (el, arr) => {
+    el.innerHTML = arr.map(([ico,name,q]) => `
+      <div class="place-row">
+        <span class="p-ico">${ico}</span>
+        <span class="p-name">${name}</span>
+        ${mapsBtn(q)}
+      </div>`).join('');
+  };
+  fill(document.getElementById('annecyPlaces'), annecyPlaces);
+  fill(document.getElementById('lyonPlaces'), lyonPlaces);
+}
+
+// ---- Checklist (mirrors itinerary items) ----
+function renderChecklist(){
+  const c = document.getElementById('checklistContainer');
+  c.innerHTML = days.map(d => {
+    const rows = d.items.map(it => `
+      <div class="cl-item">
+        <label class="check">
+          <input type="checkbox" data-key="${it.id}">
+          <span class="box"></span>
+        </label>
+        <span class="cl-name">${it.icon} ${it.name}</span>
+        ${it.map ? mapsBtn(it.map) : ''}
+      </div>`).join('');
+    return `<div class="cl-day-title">${d.emoji} ${d.badge} · ${d.title}</div>${rows}`;
+  }).join('');
+}
+
+// ---- Priority pins ----
+function renderPriorities(){
+  const fill = (el, arr) => {
+    el.innerHTML = arr.map(([ico,name,q]) =>
+      `<a class="pin" href="${gmaps(q)}" target="_blank" rel="noopener">${ico} ${name} <span style="opacity:.5">↗</span></a>`).join('');
+  };
+  fill(document.getElementById('prioMust'), priorities.must);
+  fill(document.getElementById('prioNice'), priorities.nice);
+  fill(document.getElementById('prioSun'),  priorities.sun);
+}
+
+// ---- Notes ----
+function renderNotes(){
+  document.getElementById('notesList').innerHTML = notes.map(([ico,t,d]) => `
+    <div class="note-item">
+      <div class="n-ico">${ico}</div>
+      <div class="n-txt"><b>${t}</b><span style="color:var(--muted)">${d}</span></div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   STATE / localStorage
+   ============================================================ */
+const STORAGE_KEY = "popi-annecy-lyon-checks";
+let checks = {};
+const totalItems = days.reduce((n,d)=>n+d.items.length,0);
+
+function loadChecks(){
+  try { checks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch(e){ checks = {}; }
+}
+function saveChecks(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checks)); } catch(e){}
+}
+
+// Apply state to all checkboxes (both itinerary + checklist views share data-key)
+function applyChecks(){
+  document.querySelectorAll('input[type=checkbox][data-key]').forEach(cb => {
+    cb.checked = !!checks[cb.dataset.key];
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const done = days.reduce((n,d)=> n + d.items.filter(it=>checks[it.id]).length, 0);
+  const pct = totalItems ? Math.round(done/totalItems*100) : 0;
+  ['homeFill','clFill'].forEach(id => document.getElementById(id).style.width = pct + '%');
+  document.getElementById('homePct').textContent = pct + '%';
+  document.getElementById('clPct').textContent = pct + '%';
+}
+
+// Sync a key across both views when toggled
+function bindCheckboxes(){
+  document.addEventListener('change', e => {
+    const cb = e.target;
+    if (cb.matches('input[type=checkbox][data-key]')) {
+      const key = cb.dataset.key;
+      checks[key] = cb.checked;
+      saveChecks();
+      document.querySelectorAll(`input[type=checkbox][data-key="${key}"]`).forEach(t => t.checked = cb.checked);
+      updateProgress();
+    }
+  });
+}
+
+function resetChecklist(){
+  if (!confirm("Reset all checked items? This can't be undone.")) return;
+  checks = {};
+  saveChecks();
+  applyChecks();
+}
+
+/* ============================================================
+   NAV / TABS
+   ============================================================ */
+function setupNav(){
+  const buttons = document.querySelectorAll('nav.bottom button');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      buttons.forEach(b => b.classList.toggle('active', b===btn));
+      document.querySelectorAll('.view').forEach(v =>
+        v.classList.toggle('active', v.id===tab));
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderDays();
+  renderPlaces();
+  renderChecklist();
+  renderPriorities();
+  renderNotes();
+  loadChecks();
+  applyChecks();
+  bindCheckboxes();
+  setupNav();
+  document.getElementById('resetBtn').addEventListener('click', resetChecklist);
+});
+</script>
 </body>
 </html>
