@@ -477,7 +477,11 @@ const lyonPlaces = [
   ["🍽️","Brasserie Georges","Brasserie Georges Lyon France"],
   ["🥘","Restaurant Chez Paul","Chez Paul Lyon France"],
   ["🛥️","Star Ferry (péniche)","Star Ferry péniche Lyon France"],
-  ["🍴","Les Halles Paul Bocuse","Les Halles de Lyon Paul Bocuse France"]
+  ["🍴","Les Halles Paul Bocuse","Les Halles de Lyon Paul Bocuse France"],
+  ["🪜","Les Pentes de la Croix-Rousse","Pentes de la Croix-Rousse Lyon France"],
+  ["🍷","Daniel et Denise","Daniel et Denise Saint-Jean Lyon France"],
+  ["🍷","Le Musée (bouchon)","Le Musée bouchon Lyon France"],
+  ["🚤","Vaporetto (river shuttle)","Vaporetto Lyon France"]
 ];
 
 // Day-by-day itinerary. id = stable key for localStorage.
@@ -522,19 +526,18 @@ const days = [
     title:"Historic Lyon", emoji:"🏛️",
     items:[
       {id:"d3-bell", time:"Morning", icon:"🟦", name:"Place Bellecour", sub:"Europe's huge central square", map:"Place Bellecour Lyon France"},
-      {id:"d3-rep",  time:"Morning", icon:"🛍️", name:"Rue de la République", sub:"Grand pedestrian boulevard", map:"Rue de la République Lyon France"},
-      {id:"d3-vl",   time:"Late AM", icon:"🏘️", name:"Vieux Lyon", sub:"Renaissance old town", map:"Vieux Lyon France"},
-      {id:"d3-cath", time:"Late AM", icon:"⛪", name:"Cathédrale Saint-Jean-Baptiste", sub:"Astronomical clock inside", map:"Cathédrale Saint-Jean-Baptiste Lyon France"},
-      {id:"d3-trab", time:"Midday", icon:"🚪", name:"Traboules", sub:"Hidden passageways between streets", map:"Traboules Vieux Lyon France"},
-      {id:"d3-paul", time:"Lunch", icon:"🥘", name:"Restaurant Chez Paul", sub:"Traditional Lyon bouchon — Filippos' pick 🍽️", map:"Chez Paul Lyon France"},
-      {id:"d3-fun",  time:"Afternoon", icon:"🚡", name:"Funicular to Fourvière", sub:"Ride up the hill from Vieux Lyon", transport:true, map:"Funiculaire Fourvière Lyon France"},
-      {id:"d3-bas",  time:"Afternoon", icon:"⛪", name:"Basilique Notre-Dame de Fourvière", sub:"Dazzling hilltop basilica", map:"Basilique Notre-Dame de Fourvière Lyon France"},
-      {id:"d3-thtr", time:"Afternoon", icon:"🏛️", name:"Théâtre Gallo-Romain", sub:"Ancient Roman amphitheatre", map:"Théâtre Gallo-Romain de Fourvière Lyon France"},
-      {id:"d3-sun",  time:"Sunset", icon:"🌅", name:"Sunset view from Fourvière", sub:"Best panorama over Lyon", map:"Esplanade de Fourvière Lyon France"},
-      {id:"d3-down", time:"Evening", icon:"🚶", name:"Walk back down to Vieux Lyon", sub:"If you're feeling comfortable", map:"Vieux Lyon France"},
-      {id:"d3-feder", time:"Dinner", icon:"🍽️", name:"Le Café des Fédérations", sub:"Classic Lyon bouchon — Filippos' pick 🍷", map:"Le Café des Fédérations Lyon France"}
+      {id:"d3-vl",   time:"Morning", icon:"🏘️", name:"Vieux Lyon", sub:"Renaissance old town", map:"Vieux Lyon France"},
+      {id:"d3-cath", time:"Morning", icon:"⛪", name:"Cathédrale Saint-Jean-Baptiste", sub:"Astronomical clock inside", map:"Cathédrale Saint-Jean-Baptiste Lyon France"},
+      {id:"d3-trab", time:"Morning", icon:"🚪", name:"Traboules", sub:"Hidden passageways between streets", map:"Traboules Vieux Lyon France"},
+      {id:"d3-fun",  time:"Late AM", icon:"🚞", name:"Funicular up to Fourvière", sub:"Go up early — beat the midday heat ☀️", transport:true, map:"Funiculaire Fourvière Lyon France"},
+      {id:"d3-bas",  time:"Late AM", icon:"⛪", name:"Basilique Notre-Dame de Fourvière", sub:"Dazzling hilltop basilica + panorama over Lyon", map:"Basilique Notre-Dame de Fourvière Lyon France"},
+      {id:"d3-thtr", time:"Late AM", icon:"🏛️", name:"Théâtre Gallo-Romain", sub:"Ancient Roman amphitheatre", map:"Théâtre Gallo-Romain de Fourvière Lyon France"},
+      {id:"d3-down", time:"Midday", icon:"🚶", name:"Walk back down to Vieux Lyon", sub:"Downhill & shady through the gardens", map:"Vieux Lyon France"},
+      {id:"d3-paul", time:"Lunch", icon:"🥘", name:"Restaurant Chez Paul", sub:"Authentic Lyon bouchon — Filippos says keep this one 🥘", map:"Chez Paul Lyon France"},
+      {id:"d3-rep",  time:"Afternoon", icon:"🛍️", name:"Rue de la République", sub:"Grand pedestrian boulevard — easy afternoon stroll", map:"Rue de la République Lyon France"},
+      {id:"d3-feder", time:"Dinner", icon:"🍷", name:"Bouchon dinner (optional)", sub:"Café des Fédérations is famous but pricey & touristy — Daniel et Denise or Le Musée are more authentic. No need for two heavy bouchons in one day!", map:"Daniel et Denise Saint-Jean Lyon France"}
     ],
-    tip:"Fernando tip: take the funicular up and walk down — your knees will thank you and the views unfold as you descend."
+    tip:"Fernando tip: do Fourvière first thing — Lyon gets a heat-wave in June and the hill is brutal at midday. Funicular up, walk down through the gardens, then a relaxed lunch."
   },
   {
     badge:"DAY 4", date:"Fri · 12 June",
@@ -543,16 +546,16 @@ const days = [
       {id:"d4-parc", time:"Morning", icon:"🌳", name:"Parc de la Tête d'Or", sub:"Lake, free zoo & rose garden", map:"Parc de la Tête d'Or Lyon France"},
       {id:"d4-cr",   time:"Late AM", icon:"🎨", name:"Croix-Rousse", sub:"The bohemian silk-weavers' hill", map:"Croix-Rousse Lyon France"},
       {id:"d4-mur",  time:"Late AM", icon:"🖼️", name:"Mur des Canuts", sub:"Giant trompe-l'œil mural", map:"Mur des Canuts Lyon France"},
-      {id:"d4-lunch", time:"Lunch", icon:"🍴", name:"Les Halles Paul Bocuse", sub:"Famous gourmet food hall — great lunch stop 😋", map:"Les Halles de Lyon Paul Bocuse France"},
-      {id:"d4-hdv",  time:"Afternoon", icon:"🏛️", name:"Hôtel de Ville", sub:"Grand 17th-c. city hall", map:"Hôtel de Ville de Lyon France"},
-      {id:"d4-opera",time:"Afternoon", icon:"🎭", name:"Opéra National de Lyon", sub:"Black-glass modern dome", map:"Opéra National de Lyon France"},
-      {id:"d4-terr", time:"Afternoon", icon:"⛲", name:"Place des Terreaux", sub:"Bartholdi fountain & museum", map:"Place des Terreaux Lyon France"},
+      {id:"d4-pentes", time:"Late AM", icon:"🪜", name:"Les Pentes de la Croix-Rousse", sub:"Filippos' favourite — stairways, street art, tiny cafés & locals. Wander down toward Terreaux.", map:"Pentes de la Croix-Rousse Lyon France"},
+      {id:"d4-lunch", time:"Lunch", icon:"🍴", name:"Les Halles Paul Bocuse", sub:"🏆 DON'T miss it — cheeses, chocolates, macarons, charcuterie & wines. The tastiest stop in Lyon.", map:"Les Halles de Lyon Paul Bocuse France"},
+      {id:"d4-terr", time:"Afternoon", icon:"⛲", name:"Place des Terreaux", sub:"Bartholdi fountain — you'll pass Hôtel de Ville & the Opéra right here, no separate stop needed", map:"Place des Terreaux Lyon France"},
       {id:"d4-jac",  time:"Afternoon", icon:"⛲", name:"Place des Jacobins", sub:"Elegant marble fountain square", map:"Place des Jacobins Lyon France"},
+      {id:"d4-rhone", time:"Afternoon", icon:"🌉", name:"Berges du Rhône", sub:"Worth it in the afternoon too — a very different buzz from Annecy", map:"Berges du Rhône Lyon France"},
+      {id:"d4-vap",  time:"Optional", icon:"🚤", name:"Vaporetto river shuttle", sub:"See the city from the water & rest your legs — lovely if mum gets tired", map:"Vaporetto Lyon France"},
       {id:"d4-georges", time:"Dinner", icon:"🍽️", name:"Brasserie Georges", sub:"Grand historic brasserie (4.4★) — Filippos' pick", map:"Brasserie Georges Lyon France"},
-      {id:"d4-riv",  time:"Evening", icon:"🌉", name:"Evening walk along Rhône & Saône", sub:"Riverside lights & péniche bars", map:"Berges du Rhône Lyon France"},
-      {id:"d4-star", time:"Night", icon:"🛥️", name:"Star Ferry (péniche)", sub:"Drinks on a boat-bar on the river — Filippos' pick 🍹", map:"Star Ferry péniche Lyon France"}
+      {id:"d4-star", time:"Evening", icon:"🛥️", name:"Star Ferry (péniche)", sub:"Drinks on a boat-bar as the riverside lights up — Filippos' pick 🍹", map:"Star Ferry péniche Lyon France"}
     ],
-    tip:"Fernando tip: Croix-Rousse is steep — wander down through the traboules toward Terreaux rather than climbing up."
+    tip:"Fernando tip: skip Hôtel de Ville & the Opéra as separate stops — you see them in passing. Spend that time wandering Les Pentes de la Croix-Rousse instead."
   },
   {
     badge:"DAY 5", date:"Sat · 13 June",
@@ -613,7 +616,9 @@ const food = [
   ]},
   { city:"Lyon", emoji:"🦁", items:[
     ["🥘","Restaurant Chez Paul","Day 3 · Lunch · bouchon","Chez Paul Lyon France"],
-    ["🍽️","Le Café des Fédérations","Day 3 · Dinner · bouchon","Le Café des Fédérations Lyon France"],
+    ["🍽️","Le Café des Fédérations","Day 3 · Dinner · iconic but pricey & touristy","Le Café des Fédérations Lyon France"],
+    ["🍷","Daniel et Denise","Day 3 · Dinner · authentic bouchon","Daniel et Denise Saint-Jean Lyon France"],
+    ["🍷","Le Musée","Day 3 · Dinner · authentic bouchon","Le Musée bouchon Lyon France"],
     ["🍴","Les Halles Paul Bocuse","Day 4 · Lunch · food hall","Les Halles de Lyon Paul Bocuse France"],
     ["🍽️","Brasserie Georges","Day 4 · Dinner · 4.4★","Brasserie Georges Lyon France"],
     ["🛥️","Star Ferry (péniche)","Day 4 · Evening drink","Star Ferry péniche Lyon France"]
@@ -627,7 +632,8 @@ const transport = [
   ["🏔️","Around Annecy — Sibra","Local buses, but the old town & lakefront are super walkable — you'll barely need them.","https://www.sibra.fr","Info"],
   ["🚌","Annecy → Lyon","Coach (FlixBus / BlaBlaCar Bus), ~1h45 — your 19:15 → 21:00.","https://www.blablacar.com/bus","Book"],
   ["🚆","Train option","SNCF trains Annecy ↔ Lyon (~2h) if you prefer rail to coach.","https://www.sncf-connect.com/en-en/","Search"],
-  ["🚉","Airport ↔ Lyon — Rhônexpress","Tram to Lyon Part-Dieu in ~30 min — handy for your return flight.","https://www.rhonexpress.fr/en/","Info"]
+  ["🚉","Airport ↔ Lyon — Rhônexpress","Tram to Lyon Part-Dieu in ~30 min — handy for your return flight.","https://www.rhonexpress.fr/en/","Info"],
+  ["🚤","Vaporetto (river shuttle)","Scenic boat shuttle on the Saône/Rhône — sightsee & rest your legs without walking.","https://www.lesbateauxlyonnais.com/en/","Info"]
 ];
 
 // Taste of France — local specialties to try
